@@ -1,0 +1,55 @@
+CREATE TABLE Usuario (
+Codigo INT NOT NULL,
+Nome VARCHAR (225) NOT NULL,
+Email VARCHAR (225) NOT NULL,
+Senha VARCHAR(80) NOT NULL,
+cod_verificacao VARCHAR (36),
+VERIFICADO BOOL,
+PRIMARY KEY (Codigo)
+);
+
+
+CREATE TABLE Tarefa (
+Codigo INT NOT NULL,
+Codigo_usuario INT NOT NULL,
+Descricao VARCHAR (100) NOT NULL,
+REALIZADA BOOL,
+PRIMARY KEY (Codigo),
+FOREIGN KEY (Codigo_usuario) REFERENCES Usuario (Codigo)
+);
+
+CREATE TABLE Alteracao_senha (
+Codigo INT NOT NULL,
+Codigo_usuario INT NOT NULL,
+Codigo_verificação VARCHAR (36) NOT NULL,
+Gerado_em datetime,
+Utilizado BOOL,
+PRIMARY KEY (Codigo),
+FOREIGN KEY (Codigo_usuario) REFERENCES Usuario (Codigo)
+);
+
+
+INSERT INTO Usuario VALUES
+(1, 'Joao','joaosilva@gmail.com', '$2a$12$98Yj24KHo8ytlTEMHqxEOY7YELHmKSoMFGHcJrs42p22bCP6haP.', 'ce211db6-b43a-11ec-b909-0242ac120002', false),
+(2, 'Mariana', 'marianag2@gmail.com', '$2a$12$e8T7R1H/ns9/WCfut66DOu.K5psMEbrJle8/djE3ni89rxNdccZDS.', '2f4add02-b445-11ec-b909-024ac120002', false),
+(3, 'Natalia', 'nataliaf@gmail.com', '$2a$12$xFQCloq44beKgjlEdlCqfu/EjHTQheC1zhtpxdJg8kGoAUWhov/h.', '5059de6c-b445-11ec-b909-024ac120002', false);
+
+
+INSERT INTO Tarefa VALUES
+(1, 1 , 'Ir para academia' , false ),
+(2, 1, 'Lavar louca', false ),
+(3, 2, 'Andar 2km', false),
+(4, 2, 'Fazer licao', false),
+(5, 3, 'Arrumar o quarto', false),
+(6, 3, 'Estudar', false);
+
+
+INSERT INTO Alteracao_senha VALUES
+(1, 1, 'ce211db6-b43a-11ec-b909-0242ac120002', '2022-04-09 15:43:00', true);
+
+SELECT Codigo, nome FROM Usuario;
+SELECT * FROM Tarefa;
+SELECT Utilizado, Codigo_usuario FROM Alteracao_senha;
+
+ALTER TABLE Alteracao_senha ADD ativo boolean NOT NULL DEFAULT true;
+

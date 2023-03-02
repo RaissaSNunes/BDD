@@ -1,0 +1,111 @@
+CREATE TABLE Usuario (
+  Codigo INT NOT NULL,
+  Nome VARCHAR (225) NOT NULL,
+  Email VARCHAR (225) NOT NULL,
+  Senha VARCHAR (80) NOT NULL,
+  Codigo_verificacao VARCHAR (80) NOT NULL,
+  Verificado BOOL,
+  PRIMARY KEY (Codigo)
+);
+
+INSERT INTO Usuario VALUES 
+ (1, 'Jose', 'joseserqura@gmail.com', 
+ '$2a$12$w44G9cV30ajPdauhijiyXOBTmml4dVcHOb/XRRjnOivrNsAOovzpS', 'd000fd9db-acb2-40f9-9ac9-c2c187082ba4', false),
+ (2, 'Marina', 'marinamari@gmail.com', '$2a$12$pQs/RDLyy0aWc3GjiSqipuhF8s.N5emA3pxNblPH89oPRh9KpFGNK', 'C911876d-2a37-4506-8192-1c853e3c1dc66', false),
+ (3, 'Leticia', 'lelesilva@gmail.com', '$2a$12$90clFrnl1kJH0fZGP6Xp1uy/5b5DNK1dBuMNTjTYKG39oiV1Mq0O', '9fe07a34-1e4c-45d6-9b5b-91ab-6b679470' , false);
+
+SELECT * FROM Usuario;
+
+
+CREATE TABLE Lista (
+  Codigo INT NOT NULL,
+  Nome VARCHAR (100) NOT NULL,
+  Cor CHAR (10) NOT NULL,
+  Codigo_usuario INT NOT NULL,
+  PRIMARY KEY (Codigo),
+  FOREIGN KEY (Codigo_usuario) REFERENCES Usuario (Codigo)
+);
+
+INSERT INTO Lista VALUES
+(1, 'Deveres domésticos', '#FFF0F5' , 1),
+(2, 'Liçoes', '#000000', 1),
+(3, 'Compras', '#1E90FF', 1),
+(4, 'Pagamentos', '#7B68EE', 2),
+(5, 'Vida saudável', '#87CEFA', 2),
+(6, 'Filmes', '#4682B4', 2),
+(7, 'Documentários', '#ADFF2F', 3),
+(8, 'Livros', '#CD5C5C', 3),
+(9, 'Cronograma capilar', '#CD00EF' , 3);
+
+SELECT * FROM Lista;
+
+CREATE TABLE Tarefa (
+  Codigo INT NOT NULL,
+  Codigo_lista INT NOT NULL,
+  Descrição VARCHAR (100) NOT NULL,
+  Realizada BOOl,
+  PRIMARY KEY (Codigo),
+  FOREIGN KEY (Codigo_lista) REFERENCES Lista (Codigo)
+  );
+ 
+CREATE TABLE Alteracao_senha(
+  Codigo INT NOT NULL,
+  Codigo_usuario INT NOT NULL,
+  CODIGO_verificacao VARCHAR (60) NOT NULL,
+  Gerado_em DATETIME,
+  Utilizado BOOLEAN,
+  PRIMARY KEY (Codigo),
+  FOREIGN KEY (Codigo_usuario) REFERENCES Usuario (Codigo)
+);
+
+INSERT INTO Alteracao_senha VALUES
+(1, 2, '$2a$12$w44G9cV30ajPdauhijiyXOBTmml4dVcHOb', '2022-04-17 17:43:00', true);
+
+  
+INSERT INTO Tarefa VALUES
+  (1, 1, 'Lavar roupa', false),
+  (2, 1, 'Lavar louça' , false),
+  (3, 1, 'Passar pano na casa', false);
+
+INSERT INTO Tarefa VALUES
+  (4, 2, 'Produçao de texto LPL', false),
+  (5, 2, 'Calculos quimica', false),
+  (6, 2, 'Atividade matemática', false);
+
+INSERT INTO Tarefa VALUES
+  (7, 3, 'Maçã' , false),
+  (8, 3, 'Banana', false),
+  (9, 3, 'Arroz' , false);
+
+INSERT INTO Tarefa VALUES
+  (10, 4, 'Conta de agua' , false),
+  (11, 4, 'Conta de luz' , false),
+  (12, 4, 'Cartao de credito' , false);
+
+INSERT INTO Tarefa VALUES
+  (13, 5, 'Ir a academia', false),
+  (14, 5, 'Ir ao psicologo', false),
+  (15, 5, 'Tomar agua', false);
+
+INSERT INTO Tarefa VALUES
+  (16, 6, 'Bad Boys', false),
+  (17, 6, 'Sexta feira em apuros', false),
+  (18, 6, 'O intruso', false);
+
+INSERT INTO Tarefa VALUES
+  (19, 7, 'Eua', false),
+  (20, 7, 'Mistérios sem solução', false),
+  (21, 7, 'O dilema da redes', false);
+
+INSERT INTO Tarefa VALUES
+  (22, 8, 'Diario de um banana', false),
+  (23, 8, 'Hora do espanto', false),
+  (24, 8, 'Frankenstein', false);
+
+INSERT INTO Tarefa VALUES
+  (25, 9, 'Nutrição', false),
+  (26, 9, 'Reconstrução', false),
+  (27, 9, 'Hidratação', false);
+
+SELECT * FROM Tarefa;
+SELECT * FROM Alteracao_senha;
